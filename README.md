@@ -1,3 +1,11 @@
+# Sprint 2
+
+## Task 1
+
+Реализовать REST API для работы с пользователями (User):
+1) должны быть доступны CRUD операции
+2) добавить тесты: Unit для service-layer, Integration для REST, Repository layers
+
 # Sprint 1
 
 ## Task 1
