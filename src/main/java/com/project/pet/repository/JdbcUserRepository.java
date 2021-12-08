@@ -13,17 +13,17 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 @Repository
-public class UserRepositoryJdbcImpl implements UserRepository{
+public class JdbcUserRepository implements UserRepository{
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserRepositoryJdbcImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+    public JdbcUserRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public void create(User user) {
-        String sql = "INSERT INTO OnlineShop.users " +
+        String sql = "INSERT INTO users " +
                 "(name, surname, age, phone_number)" +
                 "VALUES " +
                 "(:name, :surname, :age, :phone_number)";
@@ -37,13 +37,13 @@ public class UserRepositoryJdbcImpl implements UserRepository{
 
     @Override
     public Collection<User> readAll() {
-        String sql = "SELECT * FROM OnlineShop.users";
+        String sql = "SELECT * FROM users";
         return jdbcTemplate.query(sql, new UserMapping());
     }
 
     @Override
     public User readById(Long id) {
-        String sql = "SELECT * FROM OnlineShop.users " +
+        String sql = "SELECT * FROM users " +
                 "WHERE user_id = :user_id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("user_id", id);
@@ -52,7 +52,7 @@ public class UserRepositoryJdbcImpl implements UserRepository{
 
     @Override
     public void update(User user) {
-        String sql = "UPDATE OnlineShop.users SET " +
+        String sql = "UPDATE users SET " +
                 "name = ?, surname = ?, age = ?, phone_number = ?" +
                 "WHERE user_id = ?";
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -66,7 +66,7 @@ public class UserRepositoryJdbcImpl implements UserRepository{
 
     @Override
     public void delete(Long id) {
-        String sql = "DELETE FROM OnlineShop.users " +
+        String sql = "DELETE FROM users " +
                 "WHERE user_id = :user_id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("user_id", id);
