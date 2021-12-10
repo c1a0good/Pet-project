@@ -47,14 +47,14 @@ public class JdbcUserRepository implements UserRepository{
                 "WHERE user_id = :user_id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("user_id", id);
-        return jdbcTemplate.query(sql, new UserMapping()).get(0);
+        return jdbcTemplate.query(sql, params, new UserMapping()).get(0);
     }
 
     @Override
     public void update(User user) {
         String sql = "UPDATE users SET " +
-                "name = ?, surname = ?, age = ?, phone_number = ?" +
-                "WHERE user_id = ?";
+                "name = :name, surname = :surname, age = :age, phone_number = :phone_number " +
+                "WHERE user_id = :user_id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", user.getName())
                 .addValue("surname", user.getSurname())
