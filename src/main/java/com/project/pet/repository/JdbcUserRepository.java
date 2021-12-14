@@ -3,11 +3,15 @@ package com.project.pet.repository;
 
 import com.project.pet.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -22,7 +26,7 @@ public class JdbcUserRepository implements UserRepository{
     }
 
     @Override
-    public void create(User user) {
+    public Long create(User user) {
         String sql = "INSERT INTO users " +
                 "(name, surname, age, phone_number)" +
                 "VALUES " +
@@ -32,7 +36,9 @@ public class JdbcUserRepository implements UserRepository{
                 .addValue("surname", user.getSurname())
                 .addValue("age", user.getAge())
                 .addValue("phone_number", user.getPhoneNumber());
-        jdbcTemplate.update(sql, params);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, params, keyHolder);
+        return (Long) keyHolder.getKey();
     }
 
     @Override

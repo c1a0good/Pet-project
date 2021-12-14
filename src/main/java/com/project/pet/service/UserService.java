@@ -5,7 +5,7 @@ import com.project.pet.domain.User;
 import java.util.Collection;
 
 public interface UserService {
-    void create(User user);
+    User create(User user);
     Collection<User> readAll();
     User readById(Long id);
     void update(User user);
