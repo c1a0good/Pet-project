@@ -68,7 +68,7 @@ public class JdbcUserRepositoryTest {
 
         User expectedUser = new User(4, "name4", "surname4", 24, "+375291234568");
 
-        userRepository.create(expectedUser);
+        assertEquals(4L, userRepository.create(expectedUser));
 
         User actualUser = readById(4L);
 
